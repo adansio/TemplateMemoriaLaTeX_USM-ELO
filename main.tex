@@ -1,6 +1,7 @@
-\documentclass[12pt,spanish]{thesis}
+\documentclass[12pt,spanish,twoside]{thesis}
 
-\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
 \usepackage{amsmath}
 
@@ -19,18 +20,39 @@
 \usepackage{url}
 \usepackage{soul}
 \usepackage{fancyhdr}
+\usepackage[raggedright]{titlesec}
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
 
 %Margenes
-\usepackage[top=3cm,bottom=3cm,left=4.2cm,right=3cm]{geometry}
+\usepackage[top=3cm,bottom=3cm,inner=4.2cm,outer=3cm]{geometry}
 \pagestyle{empty} 
 \frenchspacing
 
 \fancyhead[L]{}
 \fancyhead[C]{}
 \fancyhead[R]{}
-\fancyfoot[R]{\thepage}
+\fancyfoot[RO]{\thepage}
+\fancyfoot[LE]{\thepage}
 \fancyfoot[C]{}
 
+\newcommand{\mychapter}[2]{
+    \setcounter{chapter}{#1}
+    \setcounter{section}{0}
+    \chapter*{#2}
+    \addcontentsline{toc}{chapter}{#2}
+	}
+
+\renewcommand{\thesection}{}
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
+%\renewcommand{\thesubsubsection}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}
+
+\makeatletter
+\def\@seccntformat#1{\csname #1ignore\expandafter\endcsname\csname the#1\endcsname\quad}
+\let\sectionignore\@gobbletwo
+\let\latex@numberline\numberline
+\def\numberline#1{\if\relax#1\relax\else\latex@numberline{#1}\fi}
+\makeatother
 
 %Fin Preambulo
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -40,13 +62,13 @@
 
 \begin{center}
 \linespread{1.15}
-\textbf{\large{UNIVERSIDAD TÉCNICA FEDERICO SANTA MARÍA\\}
-\normalsize{DEPARTAMENTO DE ELECTRÓNICA\\VALPARAÍSO - CHILE\\}}
+\textbf{\large{UNIVERSIDAD TÃ‰CNICA FEDERICO SANTA MARÃA\\}
+\normalsize{DEPARTAMENTO DE ELECTRÃ“NICA\\VALPARAÃSO - CHILE\\}}
 
 \vspace{0.5cm}
 \begin{figure}[H]
 \centering
-  \includegraphics[width=5.85cm]{fig/usmLogo.png}
+  \includegraphics[width=5.85cm]{usmLogo}
 \end{figure}
 \vspace{0.5cm}
 
@@ -56,30 +78,51 @@
 
 \hangindent=0cm\large \textbf{NOMBRE DEL ESCLAVO}\\
 \vspace{0.5cm}
-\hangindent=0cm\normalsize \textbf{MEMORIA DE TITULACIÓN PARA OPTAR AL TÍTULO DE INGENIERO CIVIL TELEMÁTICO}\\
+\hangindent=0cm\normalsize \textbf{MEMORIA DE TITULACIÃ“N PARA OPTAR AL TÃTULO DE INGENIERO CIVIL TELEMÃTICO}\\
 \vspace{1cm}
 \hangindent=0cm\normalsize \textbf{PROFESOR GUIA: \hspace{2cm} PROFE 1.}\\
 \vspace{0.5cm}
 \hangindent=0cm\normalsize \textbf{PROFESOR CORREFERENTE: \hspace{2cm} PROFE 2.}\\
 
 \end{center}
-
 \thispagestyle{empty}
-\newpage
-\pagestyle{fancy}
+
+%% pagina post portada
+\newpage 
+\thispagestyle{empty}
+
 \renewcommand\headrulewidth{0pt}
 
 %Numeros romanos al pie de pagina, secciones sin numero.
-\pagenumbering{roman}
-\include{cap0}
+%\pagenumbering{roman}
+
+%% cap0, agradecimientos, resumen ...
+\frontmatter
+\pagestyle{fancy}
+\addcontentsline{toc}{chapter}{Agradecimientos}
+\include{cap0/agradecimientos}
+
+\addcontentsline{toc}{chapter}{Resumen}
+\include{cap0/resumen}
+
+\addcontentsline{toc}{chapter}{Abstract}
+\include{cap0/abstract}
+
+\addcontentsline{toc}{chapter}{Glosario}
+\include{cap0/glosario}
 
 %Se sigue con numeros arabes al pie de pagina
-\pagenumbering{arabic}
+%\pagenumbering{arabic}
 \tableofcontents
+\listoffigures
+\listoftables
+
+%% cap1 ... -> contenido principal
+\mainmatter
+
 \newpage
 
-\include{cap1}
-
+\include{cap1/cap1}
 \include{referencias}
 
 		
