@@ -1,8 +1,8 @@
-\chapter{CapÌtulo 1}
+\mychapter{1}{Cap√≠tulo 1}
+\section{1. Introducci√≥n}
+\subsection{Presentaci√≥n de la problem√°tica}
 
 Como se menciona en \cite{method}\cite{modnegweb}\cite{modnegweb2}
-
-\section{CapÌtulo 1.1}
 
 Como se aprecia en la figura \ref{usm}
 
@@ -13,4 +13,6 @@ Como se aprecia en la figura \ref{usm}
 \label{usm}
 \end{figure}
 
-\section{CapÌtulo 1.2}
+\subsection{Estado del arte}
+
+\subsubsection{wea}
